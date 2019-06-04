@@ -31,7 +31,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                         .hide(mineFragment)
                         .hide(hotFragemnt)
                         .commit()
-
             }
             R.id.rb_home -> {
                 rb_home.isChecked = true
