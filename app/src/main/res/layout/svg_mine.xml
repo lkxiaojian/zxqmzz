@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="data"
+            type="com.example.qimiao.zz.mvp.m.bean.SvgImage" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!--<ImageView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--app:srcCompat="@drawable/ic_arrow_back_black_24dp"-->
+        <!--/>-->
+
+        <!--<ImageView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:tint="@color/colorAccent"-->
+        <!--android:src="@drawable/hot_selected"-->
+        <!--/>-->
+
+        <!--<ImageView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:clickable="true"-->
+            <!--android:focusable="true"-->
+            <!--android:onClick="@{data::Onclick}"-->
+            <!--android:tint="@color/tint_svg_selector"-->
+            <!--android:src="@drawable/svg_selector"-->
+          <!--/>-->
+    </LinearLayout>
+</layout>
