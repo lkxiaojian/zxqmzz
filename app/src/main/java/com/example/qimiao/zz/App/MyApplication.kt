@@ -1,17 +1,10 @@
 package com.example.qimiao.zz.App
 
 import android.content.Context
-import android.graphics.Color
 import android.support.multidex.MultiDex
 import android.support.multidex.MultiDexApplication
 import android.util.Log
-import com.example.qimiao.zz.R
 import com.example.qimiao.zz.uitls.OKHttpUpdateHttpService
-import com.netease.nimlib.sdk.NIMClient
-import com.netease.nimlib.sdk.SDKOptions
-import com.netease.nimlib.sdk.StatusBarNotificationConfig
-import com.netease.nimlib.sdk.auth.LoginInfo
-import com.netease.nimlib.sdk.uinfo.UserInfoProvider
 import com.umeng.commonsdk.UMConfigure
 import com.xuexiang.xupdate.XUpdate
 import com.xuexiang.xupdate.entity.UpdateError
@@ -38,8 +31,8 @@ class MyApplication : MultiDexApplication() {
      * 网易云初始化
      */
     private fun wyInit() {
-    var wi= com.example.qimiao.zz.uitls.wyInit()
-        NIMClient.init(this, wi.loginInfo(), wi.options(this))
+//    var wi= com.example.qimiao.zz.uitls.wyInit()
+//        NIMClient.init(this, wi.loginInfo(), wi.options(this))
     }
 
     override fun attachBaseContext(base: Context?) {

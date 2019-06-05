@@ -6,14 +6,16 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!-- 允许程序访问CellID或WiFi热点来获取粗略的位置 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <permission
         android:name="com.example.qimiao.zz.permission.RECEIVE_MSG"
-        android:protectionLevel="signature"/>
-    <uses-permission android:name="com.example.qimiao.zz.permission.RECEIVE_MSG"/>
+        android:protectionLevel="signature" />
 
+    <uses-permission android:name="com.example.qimiao.zz.permission.RECEIVE_MSG" />
 
     <application
         android:name=".App.MyApplication"
@@ -23,38 +25,41 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="3c2e022a265ad466afbb931831af50e7" />
+
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
+
         <activity
             android:name=".ui.activity.VideoPlayerActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" />
 
-
-
-
-        <!--网易配置-->
+        <!--
+        &lt;!&ndash;网易配置&ndash;&gt;
         <meta-data
             android:name="com.netease.nim.appKey"
             android:value="9f85794e7f160a0303eefa179ed4ad28" />
 
-        <!-- 云信后台服务，请使用独立进程。 -->
+        &lt;!&ndash; 云信后台服务，请使用独立进程。 &ndash;&gt;
         <service
             android:name="com.netease.nimlib.service.NimService"
             android:process=":core"/>
 
-        <!-- 云信后台辅助服务 -->
+        &lt;!&ndash; 云信后台辅助服务 &ndash;&gt;
         <service
             android:name="com.netease.nimlib.service.NimService$Aux"
             android:process=":core"/>
 
-        <!-- 云信后台辅助服务 -->
+        &lt;!&ndash; 云信后台辅助服务 &ndash;&gt;
         <service
             android:name="com.netease.nimlib.job.NIMJobService"
             android:exported="true"
@@ -62,7 +67,7 @@
             android:process=":core"/>
 
 
-        <!-- 云信监视系统启动和网络变化的广播接收器，保持和 NimService 同一进程 -->
+        &lt;!&ndash; 云信监视系统启动和网络变化的广播接收器，保持和 NimService 同一进程 &ndash;&gt;
         <receiver android:name="com.netease.nimlib.service.NimReceiver"
             android:process=":core"
             android:exported="false">
@@ -71,10 +76,10 @@
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
             </intent-filter>
         </receiver>
-        <!-- 云信进程间通信 Receiver -->
+        &lt;!&ndash; 云信进程间通信 Receiver &ndash;&gt;
         <receiver android:name="com.netease.nimlib.service.ResponseReceiver"/>
 
-        <!-- 云信进程间通信service -->
+        &lt;!&ndash; 云信进程间通信service &ndash;&gt;
         <service android:name="com.netease.nimlib.service.ResponseService"/>
 
 
@@ -83,6 +88,9 @@
             android:authorities="com.example.qimiao.zz.ipc.provider"
             android:exported="false"
             android:process=":core" />
+        -->
+
+
 
     </application>
 

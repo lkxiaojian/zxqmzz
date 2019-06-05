@@ -36,5 +36,11 @@
             <!--android:tint="@color/tint_svg_selector"-->
             <!--android:src="@drawable/svg_selector"-->
           <!--/>-->
+
+
+        <com.amap.api.maps.MapView
+            android:id="@+id/gg_map"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
     </LinearLayout>
 </layout>

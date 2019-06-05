@@ -23,6 +23,7 @@
 
 # 代码混淆压缩比，在0~7之间，默认为5，一般不做修改
 -optimizationpasses 5
+-ignorewarnings
 
 # 混合时不使用大小写混合，混合后的类名为小写
 -dontusemixedcaseclassnames
@@ -349,7 +350,7 @@
 # 友盟 统计
 -keep class com.linkedin.** { *; }
 -keep class com.android.dingtalk.share.ddsharemodule.** { *; }
--keepattributes Signature
+
 
 -keep class com.umeng.** {*;}
 -keepclassmembers class * {
@@ -359,14 +360,35 @@
     public static **[] values();
     public static ** valueOf(java.lang.String);
 }
-#-keep public class [您的应用包名].R$*{
-  ##public static final int *;
-  ##}
+# 友盟混淆的坑,官网给的混淆还要加上下面这些（集成push ） 不然部分机型会闪退
+-keep public class com.example.qimiao.zz.R$*{
+  public static final int *;
+  }
+
+  -dontwarn com.taobao.**
+  -dontwarn anet.channel.**
+  -dontwarn anetwork.channel.**
+  -dontwarn org.android.**
+  -dontwarn org.apache.thrift.**
+  -dontwarn com.xiaomi.**
+  -dontwarn com.huawei.**
+
+  -keep class com.taobao.** {*;}
+  -keep class org.android.** {*;}
+  -keep class anet.channel.** {*;}
+  -keep class com.umeng.** {*;}
+  -keep class com.xiaomi.** {*;}
+  -keep class com.huawei.** {*;}
+  -keep class org.apache.thrift.** {*;}
+
+  -keep class com.alibaba.sdk.android.**{*;}
+  -keep class com.ut.**{*;}
+  -keep class com.ta.**{*;}
+
+
 
   #### 友盟分享
 
-  -dontshrink
-  -dontoptimize
   -dontwarn com.google.android.maps.**
   -dontwarn android.webkit.WebView
   -dontwarn com.umeng.**
@@ -454,12 +476,35 @@
 
   -keep class com.linkedin.** { *; }
   -keep class com.android.dingtalk.share.ddsharemodule.** { *; }
-  -keepattributes Signature
 
 
-  ###网易及时通讯
-  -dontwarn com.netease.**
-  -keep class com.netease.** {*;}
-  #如果你使用全文检索插件，需要加入
-  -dontwarn org.apache.lucene.**
-  -keep class org.apache.lucene.** {*;}
+
+#  ###网易及时通讯
+#  -dontwarn com.netease.**
+#  -keep class com.netease.** {*;}
+#  #如果你使用全文检索插件，需要加入
+#  -dontwarn org.apache.lucene.**
+#  -keep class org.apache.lucene.** {*;}
+
+
+
+  ##########高德地图##########
+  #3D 地图 V5.0.0之后：
+  -keep   class com.amap.api.maps.**{*;}
+  -keep   class com.autonavi.**{*;}
+  -keep   class com.amap.api.trace.**{*;}
+
+#  定位
+  -keep class com.amap.api.location.**{*;}
+  -keep class com.amap.api.fence.**{*;}
+  -keep class com.autonavi.aps.amapapi.model.**{*;}
+
+##  搜索
+  -keep   class com.amap.api.services.**{*;}
+
+ # 2D地图
+  -keep class com.amap.api.maps2d.**{*;}
+  -keep class com.amap.api.mapcore2d.**{*;}
+
+ # 导航
+  -keep class com.amap.api.navi.**{*;}
