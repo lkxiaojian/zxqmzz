@@ -54,7 +54,9 @@ class MineFragment : BaseFragment() {
     override fun initView(): Fragment {
         binding?.data = SvgImage(true)
         gg_map.onCreate(savedState)
-        var aMap = gg_map.getMap()
+        var aMap = gg_map.map
+       var mUiSettings = aMap?.uiSettings
+        mUiSettings?.isZoomControlsEnabled=false
         return this
     }
 

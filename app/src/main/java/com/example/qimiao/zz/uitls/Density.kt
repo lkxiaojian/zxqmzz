@@ -27,11 +27,10 @@ class Density {
                     override fun onLowMemory() {
 
                     }
-
                     override fun onConfigurationChanged(newConfig: Configuration?) {
                         //字体发生更改，重新对scaleDensity进行赋值
                         if (newConfig != null && newConfig.fontScale > 0) {
-                            appScaleDensity = application.getResources().getDisplayMetrics().scaledDensity;
+                            appScaleDensity = application.resources.displayMetrics.scaledDensity;
                         }
                     }
                 }

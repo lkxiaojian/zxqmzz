@@ -23,7 +23,15 @@ class RetrofitClient {
     var okHttpClient: OkHttpClient? = null
     var retrofit: Retrofit? = null
     val DEFAULT_TIMEOUT: Long = 20
+
     init {
+        createRetrofit()
+    }
+
+    /**
+     * 创建retrofit对象
+     */
+    fun createRetrofit() {
         //缓存地址
         if (httpCacheDirectory == null) {
             httpCacheDirectory = File(mContext.cacheDir, "app_cache")
@@ -52,9 +60,7 @@ class RetrofitClient {
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .baseUrl(ApiService.BASE_URL)
                 .build()
-
     }
-
 
     /**
      * 日志拦截
@@ -62,19 +68,20 @@ class RetrofitClient {
     fun getLogInterceptor(): HttpLoggingInterceptor {
         // 日志显示级别
         val level = HttpLoggingInterceptor.Level.BODY
-        // 新建日志拦截器
+        // 日志拦截器
         val loggingInterceptor = HttpLoggingInterceptor { message -> Log.e("ApiUrl", "--->$message") }
 //        val loggingInterceptor = HttpLoggingInterceptor { message ->LogUtil.e("ApiUrl", "--->$message") }
         loggingInterceptor.level = level
         return loggingInterceptor
     }
 
-
+    /**
+     * 单例
+     */
     companion object {
         fun getInstance(): RetrofitClient {
             return SingletonHolder.holder
         }
-
     }
 
 
