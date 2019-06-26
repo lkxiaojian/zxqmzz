@@ -508,3 +508,6 @@
 
  # 导航
   -keep class com.amap.api.navi.**{*;}
+  ##刘海屏
+   -keep class com.gyf.immersionbar.* {*;}
+   -dontwarn com.gyf.immersionbar.**

@@ -1,14 +1,11 @@
 package com.example.qimiao.zz.ui.activity
 
 import android.app.Activity
-import android.app.Application
 import android.os.Bundle
 import com.example.qimiao.kotlinframework.mvp.m.bean.HomeBean
 import com.example.qimiao.kotlinframework.utils.ImageLoadUtils
-import com.example.qimiao.zz.App.MyApplication
 import com.example.qimiao.zz.R
 import com.example.qimiao.zz.ui.activity.base.BaseActivity
-import com.example.qimiao.zz.uitls.Density
 import com.lk.playvideolibrary.NiceVideoPlayer
 import com.lk.playvideolibrary.NiceVideoPlayerManager
 import com.lk.playvideolibrary.TxVideoPlayerController

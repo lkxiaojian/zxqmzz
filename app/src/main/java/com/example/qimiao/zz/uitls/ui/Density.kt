@@ -1,4 +1,4 @@
-package com.example.qimiao.zz.uitls
+package com.example.qimiao.zz.uitls.ui
 
 import android.content.ComponentCallbacks
 import android.app.Activity
