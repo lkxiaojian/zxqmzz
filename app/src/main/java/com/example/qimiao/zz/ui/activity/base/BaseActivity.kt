@@ -26,6 +26,7 @@ abstract class BaseActivity : AppCompatActivity(), Contract.View {
     override fun onResume() {
         super.onResume()
         if (mContext != null) {
+            MobclickAgent.onPageStart(mContext?.localClassName.toString())
             MobclickAgent.onResume(mContext)
         }
 
@@ -33,6 +34,7 @@ abstract class BaseActivity : AppCompatActivity(), Contract.View {
 
     override fun onPause() {
         super.onPause()
+        MobclickAgent.onPageEnd(mContext?.localClassName.toString())
         MobclickAgent.onPause(mContext)
     }
 

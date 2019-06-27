@@ -1,24 +1,27 @@
 package com.example.qimiao.zz
 
+import android.app.Activity
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.util.Log
 import android.view.View
 import com.example.qimiao.zz.adapter.MyPagerAdapter
+import com.example.qimiao.zz.ui.activity.base.BaseActivity
 import com.example.qimiao.zz.ui.fragment.FindFragment
 import com.example.qimiao.zz.ui.fragment.HomeFragment
 import com.example.qimiao.zz.ui.fragment.MineFragment
 import com.example.qimiao.zz.ui.fragment.TestFragment
 import com.flyco.tablayout.listener.OnTabSelectListener
 import com.gyf.barlibrary.ImmersionBar
+import com.taobao.agoo.BaseNotifyClickActivity
 import kotlinx.android.synthetic.main.activity_main_t.*
 import java.util.*
 
-class MainActivityT : AppCompatActivity(), OnTabSelectListener {
+class MainActivityT : BaseActivity(), OnTabSelectListener {
 
 
-    private val mContext = this
+//    private val mContext = this
     private val mFragments = ArrayList<Fragment>()
     private val mTitles = arrayOf("首页", "發現", "我的", "测试")
     private var mAdapter: MyPagerAdapter? = null
@@ -27,7 +30,7 @@ class MainActivityT : AppCompatActivity(), OnTabSelectListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_t)
-        initview()
+//        initview()
 
     }
 
@@ -46,8 +49,7 @@ class MainActivityT : AppCompatActivity(), OnTabSelectListener {
 
     }
 
-
-    private fun initview() {
+    override  fun initview(): Activity {
         ImmersionBar.with(this).transparentBar().barAlpha(0.3f).statusBarColor(R.color.black).fitsSystemWindows(true).init()
         val window = window
         val params = window.attributes
@@ -55,6 +57,7 @@ class MainActivityT : AppCompatActivity(), OnTabSelectListener {
         window.attributes = params
         initFreament()
 //        test()
+        return this
 
     }
 
@@ -65,5 +68,14 @@ class MainActivityT : AppCompatActivity(), OnTabSelectListener {
     override fun onTabSelect(position: Int) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
+
+    override fun <T> setData(type: String, bean: T) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun onError(type: String, error: Throwable) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
 
 }

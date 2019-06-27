@@ -22,6 +22,26 @@ android {
         ndk {
             abiFilters "armeabi", "x86"
         }
+        signingConfigs {
+            debug {
+                storeFile file('../jxd.jks')
+                keyAlias 'jxd'
+                keyPassword '123456'
+                storePassword '123456'
+            }
+            release {
+                storeFile file('../jxd.jks')
+                keyAlias 'jxd'
+                keyPassword '123456'
+                storePassword '123456'
+            }
+            config{
+                storeFile file('../jxd.jks')
+                keyAlias 'jxd'
+                keyPassword '123456'
+                storePassword '123456'
+            }
+        }
     }
     buildTypes {
         debug {
@@ -30,6 +50,7 @@ android {
             //剔除无用资源
             shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
         }
         release {
             //是否开启混淆
@@ -37,7 +58,9 @@ android {
             //剔除无用资源
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
         }
+
     }
     dataBinding {
         enabled = true
@@ -126,7 +149,10 @@ dependencies {
     //高德地图
     implementation 'com.amap.api:3dmap:5.0.0'
     implementation 'com.amap.api:location:3.3.0'
-    //implementation 'com.amap.api:search:5.0.0'
+//    implementation 'com.amap.api:search:5.0.0'
+//    implementation 'com.amap.api:3dmap:latest.integration'
+//    implementation 'com.amap.api:location:latest.integration'
+//    implementation 'com.amap.api:search:latest.integration'
 }
 //configurations {
 //    compile.exclude group: 'com.android.support.design', module: 'support-annotations'

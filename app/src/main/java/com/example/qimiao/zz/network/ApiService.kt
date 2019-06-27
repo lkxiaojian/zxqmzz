@@ -14,8 +14,6 @@ interface ApiService<T> {
         val BASE_URL: String
             get() = "http://baobab.kaiyanapp.com/api/"
     }
-
-
     //获取首页第一页数据
     @GET("v2/feed?num=2&udid=26868b32e808498db32fd51fb422d00175e179df&vc=83")
     fun <T> getHomeData(): Observable<HomeBean>

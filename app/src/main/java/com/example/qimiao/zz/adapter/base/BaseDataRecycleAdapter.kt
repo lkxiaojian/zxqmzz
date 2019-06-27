@@ -74,14 +74,14 @@ abstract class BaseDataRecycleAdapter<T>(var mContext: Context, var data: Mutabl
 
         viewHolder.convertView.setOnClickListener { v ->
             if (mOnItemClickListener != null) {
-                val position = viewHolder.getAdapterPosition()
+                val position = viewHolder.adapterPosition
                 mOnItemClickListener!!.onItemClick(v, viewHolder, position)
             }
         }
 
         viewHolder.convertView.setOnLongClickListener { v ->
             if (mOnItemClickListener != null) {
-                val position = viewHolder.getAdapterPosition()
+                val position = viewHolder.adapterPosition
                 mOnItemClickListener!!.onItemLongClick(v, viewHolder, position)
                 true
             }
@@ -131,15 +131,19 @@ abstract class BaseDataRecycleAdapter<T>(var mContext: Context, var data: Mutabl
     fun removeData(position: Int) {
         notifyItemRemoved(position + 1)
         if (position != data!!.size) {
-            if (position == 0) {
-                data!!.removeAt(position)
-                notifyDataSetChanged()
-            } else if (position == data!!.size - 1) {
-                data!!.removeAt(position)
-                notifyItemRangeChanged(position, 0)
-            } else {
-                data!!.removeAt(position)
-                notifyItemRangeChanged(position, data!!.size - position + 1)
+            when (position) {
+                0 -> {
+                    data!!.removeAt(position)
+                    notifyDataSetChanged()
+                }
+                data!!.size - 1 -> {
+                    data!!.removeAt(position)
+                    notifyItemRangeChanged(position, 0)
+                }
+                else -> {
+                    data!!.removeAt(position)
+                    notifyItemRangeChanged(position, data!!.size - position + 1)
+                }
             }
         }
     }
