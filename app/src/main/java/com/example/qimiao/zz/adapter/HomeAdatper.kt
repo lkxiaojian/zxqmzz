@@ -20,10 +20,6 @@ import com.example.qimiao.zz.ui.activity.VideoPlayerActivity
  * Created by lk on 2018/6/8.
  */
 class HomeAdatper(context: Context, list: MutableList<HomeBean.IssueListBean.ItemListBean>?) : RecyclerView.Adapter<HomeAdatper.HomeViewHolder>() {
-
-
-
-
     var context: Context? = null
     var list: MutableList<HomeBean.IssueListBean.ItemListBean>? = null
     var inflater: LayoutInflater? = null
@@ -43,6 +39,7 @@ class HomeAdatper(context: Context, list: MutableList<HomeBean.IssueListBean.Ite
     }
 
     override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {
+//        if(holder.itemView.tag==position){
         var bean = list?.get(position)
         var title = bean?.data?.title
         var category = bean?.data?.category
@@ -78,7 +75,13 @@ class HomeAdatper(context: Context, list: MutableList<HomeBean.IssueListBean.Ite
 
 
         }
+//        }
 
+
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return position
     }
 
     class HomeViewHolder(itemView: View?, context: Context) : RecyclerView.ViewHolder(itemView) {

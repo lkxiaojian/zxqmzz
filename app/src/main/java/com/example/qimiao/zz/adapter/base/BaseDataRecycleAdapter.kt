@@ -90,6 +90,10 @@ abstract class BaseDataRecycleAdapter<T>(var mContext: Context, var data: Mutabl
 
     }
 
+    override fun getItemViewType(position: Int): Int {
+        return position
+    }
+
     /**
      * 重写此方法，来判断某个item点击是否有效
      *
