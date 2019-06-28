@@ -23,7 +23,6 @@ import com.amap.api.location.AMapLocationListener
 import com.amap.api.location.AMapLocationClient
 import com.example.qimiao.zz.App.MyApplication
 import com.amap.api.location.AMapLocationClientOption
-import com.example.qimiao.zz.uitls.TestSHA1
 import com.example.urilslibrary.Utils
 import com.tbruyelle.rxpermissions2.RxPermissions
 
@@ -32,16 +31,11 @@ import com.tbruyelle.rxpermissions2.RxPermissions
  * Created by lk on 2018/6/12.
  */
 class MineFragment : BaseFragment(), AMapLocationListener {
-
-
-    private var mTitle: String? = null
     var binding: SvgMineBinding? = null
     var savedState: Bundle? = null
     private var mMap: TextureMapView? = null
     //声明AMapLocationClient类对象
     var mLocationClient: AMapLocationClient? = null
-
-
     //声明AMapLocationClientOption对象
     var mLocationOption: AMapLocationClientOption? = null
 

@@ -4,6 +4,7 @@ import android.content.Context
 import android.support.multidex.MultiDex
 import android.support.multidex.MultiDexApplication
 import android.util.Log
+import com.example.qimiao.zz.uitls.Constant
 import com.example.qimiao.zz.uitls.OKHttpUpdateHttpService
 import com.umeng.commonsdk.UMConfigure
 import com.xuexiang.xupdate.XUpdate
@@ -78,6 +79,7 @@ class MyApplication : MultiDexApplication() {
             override fun onSuccess(deviceToken: String) {
                 //注册成功会返回deviceToken deviceToken是推送消息的唯一标志
                 Log.e("tag", "注册成功：deviceToken：-------->  $deviceToken")
+                Constant.deviceToken=deviceToken
             }
 
             override fun onFailure(s: String, s1: String) {

@@ -2,9 +2,9 @@ package com.example.qimiao.kotlinframework.network
 
 import com.example.qimiao.kotlinframework.mvp.m.bean.HomeBean
 import com.example.qimiao.zz.mvp.m.bean.FindBean
+import com.example.qimiao.zz.mvp.m.bean.ResultCode
 import io.reactivex.Observable
-import retrofit2.http.GET
-import retrofit2.http.Query
+import retrofit2.http.*
 
 /**
  * Created by lk on 2018/6/8.
@@ -12,8 +12,9 @@ import retrofit2.http.Query
 interface ApiService<T> {
     companion object {
         val BASE_URL: String
-            get() = "http://baobab.kaiyanapp.com/api/"
+            get() = "http://192.168.3.221:8080/"
     }
+
     //获取首页第一页数据
     @GET("v2/feed?num=2&udid=26868b32e808498db32fd51fb422d00175e179df&vc=83")
     fun <T> getHomeData(): Observable<HomeBean>
@@ -25,5 +26,11 @@ interface ApiService<T> {
 
     //    //获取发现频道信息T
     @GET("v2/categories?udid=26868b32e808498db32fd51fb422d00175e179df&vc=83")
-    fun  getFindData(): Observable<MutableList<FindBean>>
+    fun getFindData(): Observable<MutableList<FindBean>>
+
+    @Headers("Content-Type: application/json", "Accept: application/json")
+    @POST("send-register-code")
+    fun sendRegisterCode(@Query("deviceId") deviceId:String,@Query("phone") phone:String): @JvmSuppressWildcards Observable<ResultCode>
+
+
 }

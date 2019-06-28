@@ -14,6 +14,7 @@ import io.reactivex.Observable
 class ParsingPresenter(view: Contract.View) : Contract.Presenter {
 
 
+
     var mView: Contract.View? = null
     val mModel: HomeModel by lazy {
         HomeModel()
@@ -42,9 +43,9 @@ class ParsingPresenter(view: Contract.View) : Contract.Presenter {
             url = value[2] as String
         }
 
-        var map: HashMap<*, *>? = null
+        var map: HashMap<String, Any>? = null
         if (value.size == 4) {
-            map = value[3] as HashMap<*, *>
+            map = value[3] as HashMap<String, Any>
         }
         requestData<T>(type, method, url, map)
     }
@@ -58,13 +59,13 @@ class ParsingPresenter(view: Contract.View) : Contract.Presenter {
                 value.get("type") as String,//返回类型  多个请求同时进行 ，根据此字段来判断
                 value.get("method") as String,  //请求网络的方法名
                 value.get("url") as? String,  //如果是用rf  直接用 URL 来请求的url地址
-                value.get("map") as? HashMap<*, *>,//如果 是请求 网络的时候，有表单  此map为表单
+                value.get("map") as? HashMap<String, Any>,//如果 是请求 网络的时候，有表单  此map为表单
                 value.get("param") //用 rf 请求所带的参数     如 fun <T> getHomeMoreData(@Query("date") date: String, @Query("num") num: String): Observable<HomeBean>
                 //date  num  传递的就是这两个的值
         )
     }
 
-    override fun <T> requestData(type: String, method: String, url: String?, map: HashMap<*, *>?, vararg param: Any?) {
+    override fun <T> requestData(type: String, method: String, url: String?, map: HashMap<String, Any>?, vararg param: Any?) {
         //通过反射进行动态代理
         val observable: Observable<T>? = let { Dynamic.invoke(mModel.javaClass.name, method, url,map,param) }
         //p层与v层的交互     对view 返回数据
@@ -75,10 +76,14 @@ class ParsingPresenter(view: Contract.View) : Contract.Presenter {
      * 加载更多  可以用start  代替
      * 也可以改写为  动态代理 的 方式来实现  根据自己的项目  需求来进行抉择
      */
-    fun <T> moreData(data: String?, url: String, type: String, map: HashMap<*, *>?) {
+    fun <T> moreData(data: String?, url: String, type: String, map: HashMap<String, Any>?) {
 
         when (type) {
             "loadData" -> {
+                val observable: Observable<T>? = let { mModel.loadData(url,map,false, data!!) }
+                CustomData(observable, type)
+            }
+            "sendRegisterCode"->{
                 val observable: Observable<T>? = let { mModel.loadData(url,map,false, data!!) }
                 CustomData(observable, type)
             }

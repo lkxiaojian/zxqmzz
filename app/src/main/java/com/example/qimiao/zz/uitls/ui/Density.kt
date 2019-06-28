@@ -10,7 +10,7 @@ class Density {
 
 
     companion object {
-        val WIDTH = 320f//参考设备的宽，单位是dp 320 / 2 = 160
+        val WIDTH = 375f//参考设备的宽，单位是dp 320 / 2 = 160
         var appDensity: Float = 0.toFloat()//表示屏幕密度
         var appScaleDensity: Float = 0.toFloat() //字体缩放比例，默认appDensity
         @JvmStatic

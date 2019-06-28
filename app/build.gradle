@@ -35,7 +35,7 @@ android {
                 keyPassword '123456'
                 storePassword '123456'
             }
-            config{
+            config {
                 storeFile file('../jxd.jks')
                 keyAlias 'jxd'
                 keyPassword '123456'

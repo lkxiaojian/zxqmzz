@@ -11,7 +11,7 @@ import java.lang.reflect.Method
 @Keep
 class Dynamic {
     companion object {
-        fun <T> invoke(className: String, methodName: String, url: String?, map: HashMap<*, *>?, vararg value: Any): T? {
+        fun <T> invoke(className: String, methodName: String, url: String?, map: HashMap<String, Any>?, vararg value: Any): T? {
 
             val clazz = Class.forName(className)
             val instance = clazz.newInstance()

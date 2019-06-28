@@ -14,7 +14,7 @@ class HomeModel {
 
     val retrofitClient = RetrofitClient.getInstance()
     val apiService = retrofitClient.create(ApiService::class.java)
-    fun <T> loadData(url: String?, map: HashMap<*, *>?,vararg value: Any?): Observable<T>? {
+    fun <T> loadData(url: String?, map: HashMap<String, Any>?,vararg value: Any?): Observable<T>? {
         var isfalg = true
         if (value.size == 2) {
             isfalg = false
@@ -26,7 +26,11 @@ class HomeModel {
     }
 
 
-    fun <T> FindData(url: String?, map: HashMap<*, *>?,vararg value: Any?): Observable<T>? {
+    fun <T> FindData(url: String?, map: HashMap<String, Any>?,vararg value: Any?): Observable<T>? {
         return apiService?.getFindData() as Observable<T>
+    }
+
+    fun <T> sendRegisterCode(url: String?, map: HashMap<String, Any>?,vararg value: Any?): Observable<T>? {
+        return apiService?.sendRegisterCode(map?.get("deviceId").toString(),map?.get("phone").toString()) as Observable<T>
     }
 }
