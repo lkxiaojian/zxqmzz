@@ -35,6 +35,7 @@ class HomeActivity : BaseActivity(), OnTabSelectListener, AMapLocationListener, 
     override fun onMenuItemClick(item: MenuItem?): Boolean {
         when (item?.itemId) {
             R.id.action_icon -> {
+
                 Log.e("tag", "action_icon")
             }
             R.id.action_search -> {
