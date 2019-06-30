@@ -11,7 +11,6 @@ import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import com.amap.api.location.AMapLocation
 import com.amap.api.location.AMapLocationClient
 import com.amap.api.location.AMapLocationClientOption
@@ -136,7 +135,7 @@ class HomeActivity : BaseActivity(), OnTabSelectListener, AMapLocationListener, 
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_music, menu)
+        menuInflater.inflate(R.menu.menu_homet, menu)
         if (menu != null) {
             if (menu.javaClass == MenuBuilder::class.java) {
                 try {
