@@ -86,53 +86,71 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
     //noinspection GradleCompatible
     implementation 'com.android.support:support-v4:27.1.1'
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support.constraint:constraint-layout:1.1.1'
     implementation 'com.android.support:design:27.1.1'
+    implementation 'com.android.support:cardview-v7:27.0.0'
     implementation 'io.reactivex.rxjava2:rxjava:2.0.7'
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
     implementation 'com.squareup.retrofit2:retrofit:2.2.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.2.0'
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.2.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.8.1'
+
     //    implementation 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.4@aar'
     implementation 'com.github.tbruyelle:rxpermissions:0.10.2'
     implementation 'com.zhy:okhttputils:2.6.2'
     implementation 'com.github.bumptech.glide:glide:3.7.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.5.0'
     implementation 'com.github.lkxiaojian:UtilsLibrary:v1.0'
+
     //视频播放器
     implementation 'com.github.lkxiaojian:VideoPlayer:1.1.3'
     implementation 'com.android.support:recyclerview-v7:27.1.1'
+
     //刘海屏适配
+
     // 基础依赖包，必须要依赖
     implementation 'com.gyf.immersionbar:immersionbar:3.0.0-beta05'
-// fragment快速实现（可选）
+
+    // fragment快速实现（可选）
     implementation 'com.gyf.immersionbar:immersionbar-components:3.0.0-beta05'
-// kotlin扩展（可选）
+
+    // kotlin扩展（可选）
     implementation 'com.gyf.immersionbar:immersionbar-ktx:3.0.0-beta05'
 
     //    kapt "com.android.databinding:compiler:2.3.3"
-    implementation 'com.gyf.barlibrary:barlibrary:2.2.5'
+
+    //    implementation 'com.gyf.barlibrary:barlibrary:2.2.5'
     implementation 'com.android.support:multidex:1.0.0'
+
     //自定义recycleview
     implementation 'com.github.lkxiaojian:CustomRecycleview:1.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.8.1'
+
     //图片压缩
     implementation 'com.github.lkxiaojian:ImageCompress:1.2'
     implementation 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
+
     //apk 更新
     implementation 'com.github.xuexiangjys:XUpdate:1.0.9'
+    implementation 'com.bigkoo:convenientbanner:2.1.5'
+
     //友盟统计
     implementation 'com.umeng.umsdk:analytics:7.5.4'
     implementation 'com.umeng.umsdk:common:1.5.4'
+
     //友盟推送
+
     //PushSDK必须依赖utdid库，所以需要加入对应依赖
     implementation 'com.umeng.umsdk:utdid:1.1.5.3'
+
     //PushSDK
-    implementation 'com.umeng.umsdk:push:5.0.2'
+    implementation 'com.umeng.umsdk:push:6.0.1'
+
     //友盟分享
     implementation files('libs/umeng-share-core-6.9.4.jar')
     implementation files('libs/umeng-sharetool-6.9.4.jar')
@@ -140,19 +158,26 @@ dependencies {
     implementation files('libs/umeng-share-sina-simplify-6.9.4.jar')
     implementation files('libs/umeng-share-wechat-simplify-6.9.4.jar')
     implementation files('libs/umeng-shareboard-widget-6.9.4.jar')
-    /*
-            //网易及时通讯
 
-            // 基础功能 (必需)
-            implementation 'com.netease.nimlib:basesdk:6.1.1'
-        */
+    /*
+                //网易及时通讯
+
+                // 基础功能 (必需)
+                implementation 'com.netease.nimlib:basesdk:6.1.1'
+            */
+
     //高德地图
     implementation 'com.amap.api:3dmap:5.0.0'
     implementation 'com.amap.api:location:3.3.0'
-//    implementation 'com.amap.api:search:5.0.0'
-//    implementation 'com.amap.api:3dmap:latest.integration'
-//    implementation 'com.amap.api:location:latest.integration'
-//    implementation 'com.amap.api:search:latest.integration'
+
+    //    implementation 'com.amap.api:search:5.0.0'
+
+    //    implementation 'com.amap.api:3dmap:latest.integration'
+
+    //    implementation 'com.amap.api:location:latest.integration'
+
+    //    implementation 'com.amap.api:search:latest.integration'
+
 }
 //configurations {
 //    compile.exclude group: 'com.android.support.design', module: 'support-annotations'

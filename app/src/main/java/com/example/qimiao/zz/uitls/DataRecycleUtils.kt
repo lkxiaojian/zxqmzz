@@ -47,6 +47,19 @@ class DataRecycleUtils {
             val adapter = TestMoreTypeAdapter(recyclerView.context, data, 0, arrayOf(layout1, layout2))
             recyclerView.adapter = adapter
         }
+
+
+        @BindingAdapter("parttime")
+        @JvmStatic
+        fun setPartTime(recyclerView: RecyclerView, data: MutableList<String>?) {
+            if (data == null) {
+                return
+            }
+            recyclerView.layoutManager = LinearLayoutManager(recyclerView.context)
+            val layout = R.layout.part_time
+            val adapter = BaseAdapterIml(recyclerView.context, data, layout, arrayOf())
+            recyclerView.adapter = adapter
+        }
     }
 
 }
