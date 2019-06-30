@@ -14,6 +14,7 @@ import com.example.qimiao.zz.mvp.v.TimerView
 import com.example.qimiao.zz.ui.activity.base.BaseActivity
 import com.example.qimiao.zz.uitls.Constant
 import com.example.urilslibrary.Utils
+import com.gyf.immersionbar.ImmersionBar
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_login.bt_login
 import kotlinx.android.synthetic.main.activity_login.et_code
@@ -23,7 +24,7 @@ import kotlinx.android.synthetic.main.activity_register.*
 import java.util.*
 import kotlin.collections.HashMap
 
-class RegisterActivity : BaseActivity() ,TimerView<Any>{
+class RegisterActivity : BaseActivity(), TimerView<Any> {
 
 
     var mPresenter: ParsingPresenter? = null
@@ -35,6 +36,7 @@ class RegisterActivity : BaseActivity() ,TimerView<Any>{
 
     override fun initview(): Activity {
         mPresenter = this?.let { ParsingPresenter(this) }
+        ImmersionBar.with(this).fullScreen(true).init()
         onClick()
 
         return this
@@ -81,6 +83,7 @@ class RegisterActivity : BaseActivity() ,TimerView<Any>{
                 Utils.ToastShort(MyApplication.getAppContext(), "请输入正确的手机号")
                 return@setOnClickListener
             }
+
             val mMap: HashMap<String, Any> = hashMapOf("deviceId" to Constant.deviceToken, "phone" to phoneNum)
 
             mPresenter?.start<ResultCode>("register", "sendRegisterCode", "", mMap)
@@ -93,7 +96,7 @@ class RegisterActivity : BaseActivity() ,TimerView<Any>{
 
             if (bean.code == 0) {
                 val presenter = RxTimerPresenter(this)
-                presenter.timer(300)
+                presenter.timer(10)
                 Utils.ToastShort(MyApplication.getAppContext(), "验证码发送成功")
             } else {
                 Utils.ToastShort(MyApplication.getAppContext(), bean.msg)
@@ -104,11 +107,10 @@ class RegisterActivity : BaseActivity() ,TimerView<Any>{
     }
 
     override fun onError(type: String, error: Throwable) {
-
-
-        Log.e("", "")
+        Utils.ToastShort(MyApplication.getAppContext(), "验证码发送失败")
+        bt_register_time.text = "获取验证码"
+        bt_register_time.isEnabled = true
     }
-
 
 
     override fun onCompile() {

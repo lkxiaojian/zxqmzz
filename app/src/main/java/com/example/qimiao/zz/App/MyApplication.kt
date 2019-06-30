@@ -6,6 +6,7 @@ import android.support.multidex.MultiDexApplication
 import android.util.Log
 import com.example.qimiao.zz.uitls.Constant
 import com.example.qimiao.zz.uitls.OKHttpUpdateHttpService
+import com.example.urilslibrary.Utils
 import com.umeng.commonsdk.UMConfigure
 import com.xuexiang.xupdate.XUpdate
 import com.xuexiang.xupdate.entity.UpdateError
@@ -84,6 +85,7 @@ class MyApplication : MultiDexApplication() {
 
             override fun onFailure(s: String, s1: String) {
                 Log.e("tag", "注册失败：-------->  s:$s,s1:$s1")
+                Utils.ToastShort(this@MyApplication," s:$s,s1:$s1")
             }
         })
 

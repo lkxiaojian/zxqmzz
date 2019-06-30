@@ -22,7 +22,7 @@ import com.example.qimiao.zz.ui.fragment.MineFragment
 import com.example.qimiao.zz.ui.fragment.TestFragment
 import com.example.urilslibrary.Utils
 import com.flyco.tablayout.listener.OnTabSelectListener
-import com.gyf.barlibrary.ImmersionBar
+import com.gyf.immersionbar.ImmersionBar
 import com.taobao.agoo.BaseNotifyClickActivity
 import com.tbruyelle.rxpermissions2.RxPermissions
 import kotlinx.android.synthetic.main.activity_main_t.*
@@ -60,16 +60,25 @@ class MainActivityT : BaseActivity(), OnTabSelectListener, AMapLocationListener 
         this.mAdapter!!.MyPagerAdapter(mFragments, mTitles)
         vp.adapter = mAdapter
         tl_9.setViewPager(vp)
-
-
     }
 
     override fun initview(): Activity {
-        ImmersionBar.with(this).transparentBar().barAlpha(0.3f).statusBarColor(R.color.black).fitsSystemWindows(true).init()
-        val window = window
-        val params = window.attributes
-        params.systemUiVisibility = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-        window.attributes = params
+//        ImmersionBar.with(this).transparentBar().barAlpha(0.3f).statusBarColor(R.color.white).fitsSystemWindows(true).init()
+//        val window = window
+//        val params = window.attributes
+//        params.systemUiVisibility = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+//        window.attributes = params
+
+
+
+//        ImmersionBar.with(this).statusBarColor(R.color.white)
+//                .statusBarColorTransform(R.color.black)  //状态栏变色后的颜色
+//                .navigationBarColorTransform(R.color.black)
+//                .barColor(R.color.white)
+//                .autoStatusBarDarkModeEnable(true,0.2f) //自动状态栏字体变色，必须指定状态栏颜色才可以自动变色哦
+//                .autoNavigationBarDarkModeEnable(true,0.2f)
+//                .statusBarDarkFont(true)   //状态栏字体是深色，不写默认为亮色
+//                .autoDarkModeEnable(true).init()
 //        initFreament()
         requestPermission()
 //        test()

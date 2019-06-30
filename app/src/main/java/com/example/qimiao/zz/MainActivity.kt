@@ -13,7 +13,7 @@ import com.example.qimiao.zz.ui.fragment.HotFragment
 import com.example.qimiao.zz.ui.fragment.MineFragment
 import com.example.qimiao.zz.ui.fragment.FindFragment
 import com.example.qimiao.zz.uitls.showToast
-import com.gyf.barlibrary.ImmersionBar
+import com.gyf.immersionbar.ImmersionBar
 import kotlinx.android.synthetic.main.activity_main.*
 import com.xuexiang.xupdate.XUpdate
 import com.tbruyelle.rxpermissions2.RxPermissions

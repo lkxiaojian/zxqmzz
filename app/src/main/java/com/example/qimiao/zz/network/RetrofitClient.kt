@@ -22,7 +22,7 @@ class RetrofitClient {
     var cache: Cache? = null
     var okHttpClient: OkHttpClient? = null
     var retrofit: Retrofit? = null
-    val DEFAULT_TIMEOUT: Long = 20
+    val DEFAULT_TIMEOUT: Long = 5
 
     init {
         createRetrofit()
