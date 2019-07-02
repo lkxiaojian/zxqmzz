@@ -14,7 +14,6 @@ import io.reactivex.Observable
 class ParsingPresenter(view: Contract.View) : Contract.Presenter {
 
 
-
     var mView: Contract.View? = null
     val mModel: HomeModel by lazy {
         HomeModel()
@@ -44,10 +43,14 @@ class ParsingPresenter(view: Contract.View) : Contract.Presenter {
         }
 
         var map: HashMap<String, Any>? = null
-        if (value.size == 4) {
-            map = value[3] as HashMap<String, Any>
+        map = value[3] as HashMap<String, Any>
+        if (value.size > 4) {
+            requestData<T>(type, method, url, map, value[4])
+        } else {
+            requestData<T>(type, method, url, map, "")
         }
-        requestData<T>(type, method, url, map)
+
+
     }
 
     /**
@@ -56,18 +59,19 @@ class ParsingPresenter(view: Contract.View) : Contract.Presenter {
     override fun <T> start(value: HashMap<String, Any>) {
 
         requestData<T>(
-                value.get("type") as String,//返回类型  多个请求同时进行 ，根据此字段来判断
-                value.get("method") as String,  //请求网络的方法名
-                value.get("url") as? String,  //如果是用rf  直接用 URL 来请求的url地址
-                value.get("map") as? HashMap<String, Any>,//如果 是请求 网络的时候，有表单  此map为表单
-                value.get("param") //用 rf 请求所带的参数     如 fun <T> getHomeMoreData(@Query("date") date: String, @Query("num") num: String): Observable<HomeBean>
+                value["type"] as String,//返回类型  多个请求同时进行 ，根据此字段来判断
+                value["method"] as String,  //请求网络的方法名
+                value["url"] as? String,  //如果是用rf  直接用 URL 来请求的url地址
+                value["map"] as? HashMap<String, Any>,//如果 是请求 网络的时候，有表单  此map为表单
+                value["param"] //用 rf 请求所带的参数     如 fun <T> getHomeMoreData(@Query("date") date: String, @Query("num") num: String): Observable<HomeBean>
                 //date  num  传递的就是这两个的值
         )
     }
 
     override fun <T> requestData(type: String, method: String, url: String?, map: HashMap<String, Any>?, vararg param: Any?) {
         //通过反射进行动态代理
-        val observable: Observable<T>? = let { Dynamic.invoke(mModel.javaClass.name, method, url,map,param) }
+//        val observable: Observable<T>? = let { Dynamic.invoke(mModel.javaClass.name, method, url,map,param) }
+        val observable: Observable<T>? = Dynamic.methodInvoke(mModel.javaClass.name, method, url, map, param)
         //p层与v层的交互     对view 返回数据
         CustomData(observable, type)
     }
@@ -80,13 +84,38 @@ class ParsingPresenter(view: Contract.View) : Contract.Presenter {
 
         when (type) {
             "loadData" -> {
-                val observable: Observable<T>? = let { mModel.loadData(url,map,false, data!!) }
+                val observable: Observable<T>? = let { mModel.loadData(url, map, false, data!!) }
                 CustomData(observable, type)
             }
-            "sendRegisterCode"->{
-                val observable: Observable<T>? = let { mModel.loadData(url,map,false, data!!) }
-                CustomData(observable, type)
-            }
+//            "sendRegisterCode"->{
+//                val observable: Observable<T>? = let { mModel.loadData(url,map,false, data!!) }
+//                CustomData(observable, type)
+//            }
+//            "registerCode"->{
+//                val observable: Observable<T>? = let { mModel.loadData(url,map,false, data!!) }
+//                CustomData(observable, type)
+//            }
+//            "retrievePassword"->{
+//                val observable: Observable<T>? = let { mModel.loadData(url,map,false, data!!) }
+//                CustomData(observable, type)
+//            }
+//
+//            "oauthToken"->{
+//                val observable: Observable<T>? = let { mModel.loadData(url,map,false, data!!) }
+//                CustomData(observable, type)
+//            }
+//
+//            "checkToken"->{
+//                val observable: Observable<T>? = let { mModel.loadData(url,map,false, data!!) }
+//                CustomData(observable, type)
+//            }
+//
+//            "refreshToken"->{
+//                val observable: Observable<T>? = let { mModel.loadData(url,map,false, data!!) }
+//                CustomData(observable, type)
+//            }
+
+
         }
     }
 

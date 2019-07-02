@@ -19,7 +19,7 @@ fun Context.showToast(message: String) : Toast {
     return toast
 }
 
-inline fun <reified T: Activity> Activity.newIntent() {
+inline fun <reified T: Activity> Activity.startActivity() {
     val intent = Intent(this, T::class.java)
     startActivity(intent)
 }
@@ -28,4 +28,11 @@ fun <T> Observable<T>.applySchedulers(): Observable<T> {
             unsubscribeOn(Schedulers.io()).
             observeOn(AndroidSchedulers.mainThread())
 }
+
+
+//inline fun <reified T : Activity> Activity.startActivity(vararg args: Pair<String, Any>) {
+//    val intent = Intent(this, T::class.java)
+//    intent.putExtras(bundleOf(*args))
+//    startActivity(intent)
+//}
 

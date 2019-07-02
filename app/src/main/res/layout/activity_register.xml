@@ -122,6 +122,48 @@
 
                 />
 
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="10dp"
+
+                android:gravity="center"
+                android:padding="3dp"
+                >
+
+                <CheckBox
+                    android:id="@+id/rb_true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#ffc1c1c1"
+                    android:checked="true"
+                    android:background="@drawable/rb_sure_select"
+                    android:button="@color/transparent"
+                    />
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dp"
+                    android:text="我已阅读并同意"
+                    android:textColor="#ffc1c1c1"
+                    android:textSize="13sp"
+                    />
+                <TextView
+                    android:id="@+id/tv_deal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dp"
+                    android:text="《匠小豆协议》"
+                    android:textColor="#FF9234"
+                    android:textSize="13sp"
+                    />
+            </LinearLayout>
+
             <EditText
                 android:id="@+id/et_password_sure"
                 android:layout_width="match_parent"
@@ -132,6 +174,7 @@
                 android:background="@drawable/et_bg"
                 android:focusable="auto"
                 android:hint="请再次输入密码"
+                android:visibility="gone"
                 android:inputType="textPassword"
                 android:textColorHint="#ffc1c1c1"
                 android:textCursorDrawable="@drawable/edit_cursor_color"

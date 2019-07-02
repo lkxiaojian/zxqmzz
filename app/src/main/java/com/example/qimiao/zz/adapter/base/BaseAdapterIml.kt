@@ -9,7 +9,7 @@ import com.example.qimiao.kotlinframework.viewholder.BindingHolder
  */
 class BaseAdapterIml<T>(context: Context, list: MutableList<T>, var layout: Int,var layoutIdList: Array<Int>) :
         BaseDataRecycleAdapter<T>(context, list) {
-    override fun convert(holder: BindingHolder, t: T) {
+    override fun convert(holder: BindingHolder, t: T,position:Int) {
 
     }
 

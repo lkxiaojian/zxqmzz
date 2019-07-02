@@ -107,7 +107,7 @@ abstract class BaseDataRecycleAdapter<T>(var mContext: Context, var data: Mutabl
         holder.binding.setVariable(BR.bean, data!![position])
         // 立刻刷新界面
         holder.binding.executePendingBindings()
-        convert(holder, data!![position])
+        convert(holder, data!![position],position)
 
     }
 
@@ -117,7 +117,7 @@ abstract class BaseDataRecycleAdapter<T>(var mContext: Context, var data: Mutabl
      * @param holder
      * @param t
      */
-    abstract fun convert(holder: BindingHolder, t: T)
+    abstract fun convert(holder: BindingHolder, t: T,position: Int)
 
     override fun getItemCount(): Int {
         return if (data == null) 0 else data!!.size

@@ -17,6 +17,7 @@ import com.amap.api.location.AMapLocationClientOption
 import com.amap.api.location.AMapLocationListener
 import com.example.qimiao.zz.App.MyApplication
 import com.example.qimiao.zz.R
+import com.example.qimiao.zz.adapter.GlideImageLoader
 import com.example.qimiao.zz.adapter.MyPagerAdapter
 import com.example.qimiao.zz.ui.activity.base.BaseActivity
 import com.example.qimiao.zz.ui.fragment.*
@@ -27,11 +28,16 @@ import com.example.urilslibrary.Utils
 import com.flyco.tablayout.listener.OnTabSelectListener
 import com.gyf.immersionbar.ImmersionBar
 import com.tbruyelle.rxpermissions2.RxPermissions
+import com.youth.banner.listener.OnBannerListener
+import com.youth.banner.loader.ImageLoader
+import com.youth.banner.transformer.CubeOutTransformer
 import kotlinx.android.synthetic.main.activity_home.*
 import java.util.ArrayList
 
 
 class HomeActivity : BaseActivity(), OnTabSelectListener, AMapLocationListener, Toolbar.OnMenuItemClickListener {
+
+
     override fun onMenuItemClick(item: MenuItem?): Boolean {
         when (item?.itemId) {
             R.id.action_icon -> {
@@ -88,6 +94,8 @@ class HomeActivity : BaseActivity(), OnTabSelectListener, AMapLocationListener, 
         }
     }
 
+
+
     private fun initFreament() {
         mFragments.add(HomeTFragment())
         mFragments.add(FindFragment())
@@ -109,23 +117,12 @@ class HomeActivity : BaseActivity(), OnTabSelectListener, AMapLocationListener, 
         toolbar.overflowIcon = ContextCompat.getDrawable(this, R.drawable.icon_msg)
         ToolbarUtils.setMarqueeForToolbarTitleView(toolbar)
         setSupportActionBar(toolbar)
-//        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-//        supportActionBar?.setHomeButtonEnabled(true)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
         toolbar.setOnMenuItemClickListener(this)
         //设置沉浸式，并且toolbar设置padding
-        StatusBarUtil.setStateBar(this, toolbar)
-//        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;//黑色
-
-        ImmersionBar.with(this).statusBarColor(R.color.black)
-                .statusBarColorTransform(R.color.black)  //状态栏变色后的颜色
-                .navigationBarColorTransform(R.color.black)
-                .barColor(R.color.black)
-                .autoStatusBarDarkModeEnable(true, 0.2f) //自动状态栏字体变色，必须指定状态栏颜色才可以自动变色哦
-                .autoNavigationBarDarkModeEnable(true, 0.2f)
-                .statusBarDarkFont(true)   //状态栏字体是深色，不写默认为亮色
-                .autoDarkModeEnable(true).init()
-
+        StatusBarUtil.setStateBar(this, toolbar,1)
         requestPermission()
+
         onClick()
         return this
     }

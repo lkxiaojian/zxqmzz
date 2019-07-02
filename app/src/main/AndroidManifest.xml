@@ -153,13 +153,19 @@
         <activity
             android:name=".ui.activity.login.LoginActivity"
             android:screenOrientation="portrait">
-
         </activity>
         <activity
             android:name=".ui.activity.login.RegisterActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.activity.HomeActivity"
-            android:screenOrientation="portrait" >
+        <activity
+            android:name=".ui.activity.HomeActivity"
+            android:fitsSystemWindows="true"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".ui.activity.login.ForgetPasswordActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.login.DealActivity" />
+        <activity android:name=".mvp.m.bean.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

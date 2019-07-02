@@ -11,7 +11,7 @@ import java.lang.reflect.Method
 @Keep
 class Dynamic {
     companion object {
-        fun <T> invoke(className: String, methodName: String, url: String?, map: HashMap<String, Any>?, vararg value: Any): T? {
+        fun <T> methodInvoke(className: String, methodName: String, url: String?, map: HashMap<String, Any>?, vararg  value: Any): T? {
 
             val clazz = Class.forName(className)
             val instance = clazz.newInstance()
@@ -25,7 +25,7 @@ class Dynamic {
                 }
             }
             executeMethods?.isAccessible = true
-            Log.e("executeMethods", "executeMethods--" + executeMethods)
+//            Log.e("executeMethods", "executeMethods--" + executeMethods)
             return executeMethods?.invoke(instance,url,map, value) as T?
         }
     }

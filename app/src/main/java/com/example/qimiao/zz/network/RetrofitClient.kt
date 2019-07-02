@@ -5,6 +5,7 @@ import android.util.Log
 import com.example.qimiao.zz.App.MyApplication
 import com.example.qimiao.zz.uitls.LogUtil
 import okhttp3.Cache
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -21,7 +22,7 @@ class RetrofitClient {
     val mContext: Context = MyApplication.getAppContext()
     var cache: Cache? = null
     var okHttpClient: OkHttpClient? = null
-    var retrofit: Retrofit? = null
+    public var retrofit: Retrofit? = null
     val DEFAULT_TIMEOUT: Long = 5
 
     init {
@@ -50,6 +51,7 @@ class RetrofitClient {
                 .cache(cache)
                 .addInterceptor(getLogInterceptor())
                 .addNetworkInterceptor(CacheInterceptor(mContext))
+                .addInterceptor(HeardInterceptor(mContext))
                 .connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
                 .writeTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
                 .build()
@@ -74,6 +76,7 @@ class RetrofitClient {
         loggingInterceptor.level = level
         return loggingInterceptor
     }
+
 
     /**
      * 单例
