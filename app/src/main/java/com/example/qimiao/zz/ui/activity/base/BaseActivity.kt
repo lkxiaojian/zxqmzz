@@ -10,6 +10,7 @@ import com.example.qimiao.zz.mvp.v.Contract
 import com.example.urilslibrary.Utils
 import com.umeng.analytics.MobclickAgent
 import com.umeng.message.PushAgent
+import org.greenrobot.eventbus.EventBus
 
 /**
  * Created by lk on 2018/6/19.

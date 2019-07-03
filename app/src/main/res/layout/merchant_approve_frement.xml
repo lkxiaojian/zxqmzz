@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:background="#F7F7F7">
+
+        <LinearLayout
+            android:id="@+id/ll_top"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:background="#F7F7F7"
+            android:gravity="center|left"
+            android:orientation="horizontal">
+
+
+            <ImageView
+                android:layout_width="12dp"
+                android:layout_height="17dp"
+                android:layout_marginLeft="15dp"
+                android:src="@mipmap/btn_start"
+
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:text="商家认证"
+                android:textColor="#FF9234"
+                android:textSize="17sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_approve_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:padding="10dp"
+            app:layout_constraintLeft_toLeftOf="@id/ll_top"
+            app:layout_constraintTop_toBottomOf="@id/ll_top">
+
+            <TextView
+                style="@style/TextViewApprove"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="商家名称:" />
+
+            <EditText
+                android:id="@+id/et_shop_name"
+                style="@style/EdittextApprove"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="请输入营业执照上全称"
+                />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/ll_approve_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:background="@color/white"
+            android:padding="10dp"
+            app:layout_constraintLeft_toLeftOf="@id/ll_approve_name"
+            app:layout_constraintTop_toBottomOf="@id/ll_approve_name">
+
+            <TextView
+                style="@style/TextViewApprove"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="商家地址:" />
+
+            <EditText
+                android:id="@+id/et_shop_address"
+                style="@style/EdittextApprove"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="请输入具体位置" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/ll_approve_pname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@color/white"
+            android:padding="10dp"
+            app:layout_constraintLeft_toLeftOf="@id/ll_approve_address"
+            app:layout_constraintTop_toBottomOf="@id/ll_approve_address">
+
+            <TextView
+                style="@style/TextViewApprove"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="联系人:" />
+
+            <EditText
+                android:id="@+id/et_shop_person"
+                style="@style/EdittextApprove"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="请输入真实姓名" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_approve_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:background="@color/white"
+            android:padding="10dp"
+            app:layout_constraintLeft_toLeftOf="@id/ll_approve_pname"
+            app:layout_constraintTop_toBottomOf="@id/ll_approve_pname">
+
+            <TextView
+                style="@style/TextViewApprove"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="联系电话:" />
+
+            <EditText
+                android:id="@+id/et_shop_phone"
+                style="@style/EdittextApprove"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="请输入真实的联系电话" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/ll_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:padding="10dp"
+            app:layout_constraintLeft_toLeftOf="@id/ll_approve_phone"
+            app:layout_constraintTop_toBottomOf="@id/ll_approve_phone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="企业资料上传："
+                android:textColor="#ff373737"
+                android:textSize="15sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/im_id_card_z"
+                    android:layout_width="match_parent"
+                    android:layout_height="72dp"
+                    android:layout_weight="1"
+                    android:src="@mipmap/id_card_z" />
+
+                <ImageView
+                    android:id="@+id/im_id_card_f"
+                    android:layout_width="match_parent"
+                    android:layout_height="72dp"
+                    android:layout_weight="1"
+                    android:src="@mipmap/id_card_f" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/im_id_card_y"
+                    android:layout_width="match_parent"
+                    android:layout_height="72dp"
+                    android:layout_weight="1"
+                    android:src="@mipmap/id_card_y" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="72dp"
+                    android:layout_weight="1"
+                    android:src="@mipmap/id_card_f"
+                    android:visibility="invisible" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/bt_commit"
+                android:layout_width="match_parent"
+                android:layout_height="37dp"
+                android:layout_gravity="bottom"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="40dp"
+                android:background="#FF9234"
+                android:text="提交"
+                android:textColor="@color/white"
+                android:textSize="13sp"
+                app:layout_constraintLeft_toLeftOf="@id/ll_image"
+                app:layout_constraintTop_toBottomOf="@id/ll_image"
+
+                />
+        </LinearLayout>
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>

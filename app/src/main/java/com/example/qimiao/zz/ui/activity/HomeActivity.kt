@@ -3,6 +3,7 @@ package com.example.qimiao.zz.ui.activity
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
@@ -19,19 +20,24 @@ import com.example.qimiao.zz.App.MyApplication
 import com.example.qimiao.zz.R
 import com.example.qimiao.zz.adapter.GlideImageLoader
 import com.example.qimiao.zz.adapter.MyPagerAdapter
+import com.example.qimiao.zz.mvp.m.bean.ImageResult
 import com.example.qimiao.zz.ui.activity.base.BaseActivity
 import com.example.qimiao.zz.ui.fragment.*
+import com.example.qimiao.zz.ui.fragment.approve.MerchantApproveFrement
 import com.example.qimiao.zz.uitls.StatusBarUtil
 import com.example.qimiao.zz.uitls.ToolbarUtils
+import com.example.qimiao.zz.uitls.UriParseUtils
 import com.example.qimiao.zz.uitls.ui.UIUtils
 import com.example.urilslibrary.Utils
 import com.flyco.tablayout.listener.OnTabSelectListener
 import com.gyf.immersionbar.ImmersionBar
+import com.netease.image.library.utils.Constants
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.youth.banner.listener.OnBannerListener
 import com.youth.banner.loader.ImageLoader
 import com.youth.banner.transformer.CubeOutTransformer
 import kotlinx.android.synthetic.main.activity_home.*
+import org.greenrobot.eventbus.EventBus
 import java.util.ArrayList
 
 
@@ -59,6 +65,8 @@ class HomeActivity : BaseActivity(), OnTabSelectListener, AMapLocationListener, 
     private var mLocationClient: AMapLocationClient? = null
     //声明AMapLocationClientOption对象
     var mLocationOption: AMapLocationClientOption? = null
+    private var falge = true
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,7 +88,7 @@ class HomeActivity : BaseActivity(), OnTabSelectListener, AMapLocationListener, 
     /**
      * 请求权限
      */
-    @SuppressLint("CheckResult")
+
     private fun requestPermission() {
         RxPermissions(this).request(Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.ACCESS_COARSE_LOCATION,
@@ -95,10 +103,9 @@ class HomeActivity : BaseActivity(), OnTabSelectListener, AMapLocationListener, 
     }
 
 
-
     private fun initFreament() {
         mFragments.add(HomeTFragment())
-        mFragments.add(FindFragment())
+        mFragments.add(MerchantApproveFrement())
         mFragments.add(MineFragment())
         mFragments.add(TestFragment())
         mAdapter = MyPagerAdapter(supportFragmentManager)
@@ -120,8 +127,13 @@ class HomeActivity : BaseActivity(), OnTabSelectListener, AMapLocationListener, 
         supportActionBar?.setDisplayShowTitleEnabled(false)
         toolbar.setOnMenuItemClickListener(this)
         //设置沉浸式，并且toolbar设置padding
-        StatusBarUtil.setStateBar(this, toolbar,1)
-        requestPermission()
+        StatusBarUtil.setStateBar(this, toolbar, 1)
+
+        if (falge) {
+            requestPermission()
+            falge = false
+        }
+
 
         onClick()
         return this
@@ -146,6 +158,11 @@ class HomeActivity : BaseActivity(), OnTabSelectListener, AMapLocationListener, 
             }
         }
         return true
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+        super.onActivityResult(requestCode, resultCode, data)
+        EventBus.getDefault().post(ImageResult(requestCode,resultCode,data))
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
@@ -184,5 +201,10 @@ class HomeActivity : BaseActivity(), OnTabSelectListener, AMapLocationListener, 
 
     override fun onTabReselect(position: Int) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this);
     }
 }

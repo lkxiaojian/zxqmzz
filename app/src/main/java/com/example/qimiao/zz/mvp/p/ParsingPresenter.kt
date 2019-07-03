@@ -42,12 +42,16 @@ class ParsingPresenter(view: Contract.View) : Contract.Presenter {
             url = value[2] as String
         }
 
-        var map: HashMap<String, Any>? = null
-        map = value[3] as HashMap<String, Any>
-        if (value.size > 4) {
-            requestData<T>(type, method, url, map, value[4])
-        } else {
+        var map: HashMap<String, Any>? = hashMapOf()
+        if (value.size == 2) {
             requestData<T>(type, method, url, map, "")
+        } else {
+            map = value[3] as HashMap<String, Any>
+            if (value.size > 4) {
+                requestData<T>(type, method, url, map, value[4])
+            } else {
+                requestData<T>(type, method, url, map, "")
+            }
         }
 
 
@@ -70,8 +74,7 @@ class ParsingPresenter(view: Contract.View) : Contract.Presenter {
 
     override fun <T> requestData(type: String, method: String, url: String?, map: HashMap<String, Any>?, vararg param: Any?) {
         //通过反射进行动态代理
-//        val observable: Observable<T>? = let { Dynamic.invoke(mModel.javaClass.name, method, url,map,param) }
-        val observable: Observable<T>? = Dynamic.methodInvoke(mModel.javaClass.name, method, url, map, param)
+        val observable: Observable<T>? = let { Dynamic.methodInvoke(mModel.javaClass.name, method, url,map,param) }
         //p层与v层的交互     对view 返回数据
         CustomData(observable, type)
     }
@@ -83,10 +86,10 @@ class ParsingPresenter(view: Contract.View) : Contract.Presenter {
     fun <T> moreData(data: String?, url: String, type: String, map: HashMap<String, Any>?) {
 
         when (type) {
-            "loadData" -> {
-                val observable: Observable<T>? = let { mModel.loadData(url, map, false, data!!) }
-                CustomData(observable, type)
-            }
+//            "loadData" -> {
+//                val observable: Observable<T>? = let { mModel.loadData(url, map, false, data!!) }
+//                CustomData(observable, type)
+//            }
 //            "sendRegisterCode"->{
 //                val observable: Observable<T>? = let { mModel.loadData(url,map,false, data!!) }
 //                CustomData(observable, type)

@@ -67,7 +67,7 @@ class HomeModel {
      */
 
     fun <T> oauthToken(url: String?, map: HashMap<String, Any>?, vararg value: Any?): Observable<T>? {
-        return apiService?.oauthToken(map?.get("username").toString(), map?.get("password").toString(), "password", "123456", "jxdou_web", map?.get("authen_type").toString()) as Observable<T>
+        return apiService?.oauthToken(map?.get("username").toString(), map?.get("password").toString(), "password", "123456", "jxdou_web", map?.get("authen_type").toString(),Constant.deviceToken) as Observable<T>
     }
 
 

@@ -160,17 +160,20 @@
         <activity
             android:name=".ui.activity.HomeActivity"
             android:fitsSystemWindows="true"
-            android:screenOrientation="portrait"></activity>
-        <activity
-            android:name=".ui.activity.login.ForgetPasswordActivity"
-            android:screenOrientation="portrait" />
-        <activity android:name=".ui.activity.login.DealActivity" />
-        <activity android:name=".mvp.m.bean.SplashActivity">
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+        </activity>
+        <activity
+            android:name=".ui.activity.login.ForgetPasswordActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.login.DealActivity" />
+        <activity android:name=".mvp.m.bean.SplashActivity">
+
 
         </activity>
     </application>

@@ -62,7 +62,8 @@ interface ApiService<T> {
                    @Query("grant_type") grant_type: String,
                    @Query("client_secret") client_secret: String,
                    @Query("client_id") client_id: String,
-                   @Query("authen_type") authen_type: String): @JvmSuppressWildcards Observable<LoginToken>
+                   @Query("auth_type") auth_type: String,
+                   @Query("device_id") device_id: String): @JvmSuppressWildcards Observable<LoginToken>
 
 
     /**

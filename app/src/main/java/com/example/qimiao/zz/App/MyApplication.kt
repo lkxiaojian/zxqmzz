@@ -1,5 +1,6 @@
 package com.example.qimiao.zz.App
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.support.multidex.MultiDex
 import android.support.multidex.MultiDexApplication
@@ -14,7 +15,7 @@ import com.xuexiang.xupdate.utils.UpdateUtils
 import com.umeng.message.PushAgent
 import com.umeng.message.IUmengRegisterCallback
 import com.umeng.socialize.PlatformConfig
-
+import io.reactivex.plugins.RxJavaPlugins
 
 /**
  * Created by lk on 2018/6/12.
@@ -22,12 +23,16 @@ import com.umeng.socialize.PlatformConfig
 class MyApplication : MultiDexApplication() {
 
 
+    @SuppressLint("LongLogTag")
     override fun onCreate() {
         super.onCreate()
         mAppContext = applicationContext
         um()
         apkUpdate()
 //        wyInit()
+//        RxJavaPlugins.setErrorHandler {
+//            Log.e("onRxJavaErrorHandler ---->:", it.message)
+//        }
 
     }
 
@@ -80,12 +85,12 @@ class MyApplication : MultiDexApplication() {
             override fun onSuccess(deviceToken: String) {
                 //注册成功会返回deviceToken deviceToken是推送消息的唯一标志
                 Log.e("tag", "注册成功：deviceToken：-------->  $deviceToken")
-                Constant.deviceToken=deviceToken
+                Constant.deviceToken = deviceToken
             }
 
             override fun onFailure(s: String, s1: String) {
                 Log.e("tag", "注册失败：-------->  s:$s,s1:$s1")
-                Utils.ToastShort(this@MyApplication," s:$s,s1:$s1")
+                Utils.ToastShort(this@MyApplication, " s:$s,s1:$s1")
             }
         })
 

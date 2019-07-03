@@ -25,8 +25,6 @@ class HomeFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
     override fun onError(type: String, error: Throwable) {
 
     }
-
-
     var TAG = "HomeFragment"
     var mIsRefresh: Boolean = false
     var mPresenter: ParsingPresenter? = null

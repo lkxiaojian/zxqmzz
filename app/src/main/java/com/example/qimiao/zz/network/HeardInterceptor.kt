@@ -20,8 +20,8 @@ class HeardInterceptor(context: Context) : Interceptor {
                 ?.addHeader("Connection", "keep-alive")
                 ?.addHeader("Accept", "*/*")
                 ?.addHeader("Cookie", "add cookies here")
+                ?.addHeader("Bearer", Constant.access_token)
                 ?.build()
         return chain?.proceed(request)
     }
-//    ?.addHeader("Bearer", Constant.access_token)
 }

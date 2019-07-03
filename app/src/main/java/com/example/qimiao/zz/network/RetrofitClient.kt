@@ -22,8 +22,9 @@ class RetrofitClient {
     val mContext: Context = MyApplication.getAppContext()
     var cache: Cache? = null
     var okHttpClient: OkHttpClient? = null
-    public var retrofit: Retrofit? = null
+    var retrofit: Retrofit? = null
     val DEFAULT_TIMEOUT: Long = 5
+    var type=0
 
     init {
         createRetrofit()
@@ -49,9 +50,9 @@ class RetrofitClient {
                 .addNetworkInterceptor(
                         HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
                 .cache(cache)
-                .addInterceptor(getLogInterceptor())
-                .addNetworkInterceptor(CacheInterceptor(mContext))
                 .addInterceptor(HeardInterceptor(mContext))
+                .addInterceptor(getLogInterceptor())
+//                .addNetworkInterceptor(CacheInterceptor(mContext))
                 .connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
                 .writeTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
                 .build()
@@ -82,7 +83,7 @@ class RetrofitClient {
      * 单例
      */
     companion object {
-        fun getInstance(): RetrofitClient {
+        fun getInstance(vararg value: Int): RetrofitClient {
             return SingletonHolder.holder
         }
     }
