@@ -25,6 +25,7 @@ import com.example.qimiao.zz.ui.popupwindow.OptionBottomDialog
 import com.example.qimiao.zz.uitls.Constant
 import com.example.qimiao.zz.uitls.UriParseUtils
 import com.example.urilslibrary.Utils
+import com.google.gson.Gson
 import com.netease.image.library.CompressImageManager
 import com.netease.image.library.bean.Photo
 import com.netease.image.library.config.CompressConfig
@@ -34,9 +35,12 @@ import com.netease.image.library.utils.CommonUtils
 import com.netease.image.library.utils.Constants
 import com.tbruyelle.rxpermissions2.RxPermissions
 import kotlinx.android.synthetic.main.merchant_approve_frement.*
+import okhttp3.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import java.io.File
+import java.io.IOException
 import java.util.ArrayList
 
 class MerchantApproveFrement : BaseFragment(), CompressImage.CompressListener {
@@ -48,7 +52,8 @@ class MerchantApproveFrement : BaseFragment(), CompressImage.CompressListener {
     private var dialog: ProgressDialog? = null // 压缩加载框
     private var rxPermissions: RxPermissions? = null
     private var isFalg = true
-    private var imagesMap: HashMap<String, String>? = hashMapOf()
+    private var imagesMap: HashMap<String, File>? = hashMapOf()
+    private val client: OkHttpClient = OkHttpClient()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -125,8 +130,6 @@ class MerchantApproveFrement : BaseFragment(), CompressImage.CompressListener {
             }
 
 
-
-
         }
     }
 
@@ -169,7 +172,6 @@ class MerchantApproveFrement : BaseFragment(), CompressImage.CompressListener {
                                 } else if ("2" == type) {
                                     albumImage(view, Constant.ALBUN_CODE_ID_FY)
                                 }
-
                             }
 
                             optionBottomDialog.dismiss()
@@ -272,15 +274,15 @@ class MerchantApproveFrement : BaseFragment(), CompressImage.CompressListener {
         var imageView: ImageView? = null
         var errorImage = R.mipmap.id_card_z
         if (phone.type == Constant.CAMERA_CODE_ID_Z || phone.type == Constant.ALBUN_CODE_ID_Z) {
-            imagesMap?.put("id_card_z", url)
+            imagesMap?.put("id_card_z", File(url))
             errorImage = R.mipmap.id_card_z
             imageView = im_id_card_z
         } else if (phone.type == Constant.ALBUN_CODE_ID_F || phone.type == Constant.CAMERA_CODE_ID_F) {
-            imagesMap?.put("id_card_f", url)
+            imagesMap?.put("id_card_f", File(url))
             errorImage = R.mipmap.id_card_f
             imageView = im_id_card_f
         } else if (phone.type == Constant.ALBUN_CODE_ID_FY || phone.type == Constant.CAMERA_CODE_ID_ZY) {
-            imagesMap?.put("id_card_zy", url)
+            imagesMap?.put("id_card_zy", File(url))
             errorImage = R.mipmap.id_card_y
             imageView = im_id_card_y
         }
@@ -291,6 +293,37 @@ class MerchantApproveFrement : BaseFragment(), CompressImage.CompressListener {
                 .placeholder(errorImage)
                 .error(errorImage)
                 .into(imageView)
+    }
+
+
+    private fun uploadFiles(fileList: List<File>, which: Int) { // which 1 image,2 video
+
+        val builder = MultipartBody.Builder().setType(MultipartBody.FORM)
+        for (file in fileList) {
+            if (file != null) {
+                builder.addFormDataPart("files", file.name, RequestBody.create(if (which == 1) Constant.MEDIA_TYPE_JPG else Constant.MEDIA_TYPE_MP4, file))
+            }
+        }
+        val requestBody = builder.build()
+        val request = Request.Builder()
+                .url("url")
+                .post(requestBody)
+                .build()
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                println("上传失败:e.getLocalizedMessage() = " + e.localizedMessage)
+//                dismissLoadingDialog()
+//                U.showToast("文件上传错误，请重新上传")
+            }
+
+            @Throws(IOException::class)
+            override fun onResponse(call: Call, response: Response) {
+                val JsonStr = response.body()!!.string()
+                println("上传照片成功：response = $JsonStr")
+//                val entity = Gson().fromJson<Any>(JsonStr, ReleaseEntity::class.java)
+
+            }
+        })
     }
 
 }

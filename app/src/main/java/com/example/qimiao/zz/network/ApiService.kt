@@ -37,7 +37,7 @@ interface ApiService<T> {
 
 //    @Headers("Content-Type: application/json", "Accept: application/json")
     @POST("send-validate-code")
-    fun sendRegisterCode(@Query("deviceId") deviceId: String, @Query("phone") phone: String): @JvmSuppressWildcards Observable<ResultCode>
+    fun sendRegisterCode(@Query("deviceId") deviceId: String, @Query("phone") phone: String, @Query("smsType") smsType: String): @JvmSuppressWildcards Observable<ResultCode>
 
     /**
      * 用户注册

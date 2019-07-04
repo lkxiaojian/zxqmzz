@@ -50,7 +50,7 @@ class ForgetPasswordActivity : BaseActivity(), TimerView<Any> {
                 return@setOnClickListener
             }
 
-            val mMap: HashMap<String, Any> = hashMapOf("deviceId" to Constant.deviceToken, "phone" to phoneNum)
+            val mMap: HashMap<String, Any> = hashMapOf("deviceId" to Constant.deviceToken, "phone" to phoneNum,"smsType" to "2")
 
             mPresenter?.start<ResultCode>("sendRegisterCode", "sendRegisterCode", "", mMap)
         }

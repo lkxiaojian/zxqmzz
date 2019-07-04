@@ -97,7 +97,7 @@ class LoginActivity : BaseActivity(), TimerView<Any> {
                 return@setOnClickListener
             }
 
-            val mMap: HashMap<String, Any> = hashMapOf("deviceId" to Constant.deviceToken, "phone" to phoneNum)
+            val mMap: HashMap<String, Any> = hashMapOf("deviceId" to Constant.deviceToken, "phone" to phoneNum, "smsType" to "1")
             mPresenter?.start<ResultCode>("sendRegisterCode", "sendRegisterCode", "", mMap)
 
 
@@ -121,7 +121,7 @@ class LoginActivity : BaseActivity(), TimerView<Any> {
             var data = bean as LoginToken
             SharedPreferencesUtil.saveString(MyApplication.getAppContext(), "refresh_token", data.refresh_token)
             SharedPreferencesUtil.saveString(MyApplication.getAppContext(), "access_token", data.access_token)
-            startActivity(Intent(this,HomeActivity::class.java))
+            startActivity(Intent(this, HomeActivity::class.java))
         }
     }
 

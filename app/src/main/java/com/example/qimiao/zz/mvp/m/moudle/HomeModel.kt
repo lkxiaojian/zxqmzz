@@ -39,7 +39,7 @@ class HomeModel {
      * 获取验证吗
      */
     fun <T> sendRegisterCode(url: String?, map: HashMap<String, Any>?, vararg value: Any?): Observable<T>? {
-        return apiService?.sendRegisterCode(map?.get("deviceId").toString(), map?.get("phone").toString()) as Observable<T>
+        return apiService?.sendRegisterCode(map?.get("deviceId").toString(), map?.get("phone").toString(), map?.get("smsType").toString()) as Observable<T>
     }
 
     /**

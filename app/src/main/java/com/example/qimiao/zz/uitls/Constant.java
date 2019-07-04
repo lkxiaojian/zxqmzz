@@ -1,5 +1,7 @@
 package com.example.qimiao.zz.uitls;
 
+import okhttp3.MediaType;
+
 public class Constant {
     //设备号
     public static String deviceToken = "";
@@ -20,4 +22,7 @@ public class Constant {
     public final static int CAMERA_CODE_ID_ZY = 1005;
     // 营业执照 反
     public final static int ALBUN_CODE_ID_FY = 1006;
+
+    public static final MediaType MEDIA_TYPE_JPG = MediaType.parse("image/jpg");
+    public static final MediaType MEDIA_TYPE_MP4 = MediaType.parse("video/mp4");
 }

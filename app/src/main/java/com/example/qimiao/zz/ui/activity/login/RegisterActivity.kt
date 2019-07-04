@@ -70,7 +70,7 @@ class RegisterActivity : BaseActivity(), TimerView<Any> {
 //                Utils.ToastShort(MyApplication.getAppContext(), "两次密码输入不一致")
 //                return@setOnClickListener
 //            }
-            val mMap: HashMap<*, *> = hashMapOf("deviceId" to Constant.deviceToken, "phone" to phoneNum, "password" to passWord, "smsCode" to code)
+            val mMap: HashMap<*, *> = hashMapOf("deviceId" to Constant.deviceToken, "phone" to phoneNum, "password" to passWord, "smsCode" to code,"smsType" to "0")
 
             mPresenter?.start<ResultCode>("register", "registerCode", "", mMap)
         }
