@@ -90,5 +90,11 @@ class HomeModel {
         return apiService?.refreshToken(map?.get("refresh_token").toString(), "refresh_token", "jxdou_web", "123456",Constant.access_token) as Observable<T>
     }
 
+    /**
+     * 检查token
+     */
+    fun <T> getUserMessage(url: String?, map: HashMap<String, Any>?, vararg value: Any?): Observable<T>? {
 
+        return apiService?.getMyMessage() as Observable<T>
+    }
 }

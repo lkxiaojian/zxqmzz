@@ -1,10 +1,7 @@
 package com.example.qimiao.kotlinframework.network
 
 import com.example.qimiao.kotlinframework.mvp.m.bean.HomeBean
-import com.example.qimiao.zz.mvp.m.bean.FindBean
-import com.example.qimiao.zz.mvp.m.bean.LoginToken
-import com.example.qimiao.zz.mvp.m.bean.RefreshTokenBean
-import com.example.qimiao.zz.mvp.m.bean.ResultCode
+import com.example.qimiao.zz.mvp.m.bean.*
 import com.example.qimiao.zz.uitls.Constant
 import io.reactivex.Observable
 import retrofit2.http.*
@@ -81,7 +78,13 @@ interface ApiService<T> {
                      @Query("grant_type") grant_type: String,
                      @Query("client_id") client_id: String,
                      @Query("client_secret") client_secret: String,
-                     @Header("Bearer") Bearer: String): @JvmSuppressWildcards Observable<LoginToken>
+                     @Header("Authorization") Bearer: String): @JvmSuppressWildcards Observable<LoginToken>
 
+
+    /**
+     * 获取个人信息
+     */
+    @GET("me")
+    fun getMyMessage(): Observable<UserMessage>
 
 }

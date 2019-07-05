@@ -3,7 +3,11 @@ package com.example.qimiao.kotlinframework.network
 import android.content.Context
 import android.util.Log
 import com.example.qimiao.zz.App.MyApplication
+import com.example.qimiao.zz.network.TokenAuthenticator
+import com.example.qimiao.zz.network.TokenAuthenticatorK
+import com.example.qimiao.zz.uitls.Constant
 import com.example.qimiao.zz.uitls.LogUtil
+import okhttp3.Authenticator
 import okhttp3.Cache
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -21,10 +25,10 @@ class RetrofitClient {
     var httpCacheDirectory: File? = null
     val mContext: Context = MyApplication.getAppContext()
     var cache: Cache? = null
-    var okHttpClient: OkHttpClient? = null
+    private var okHttpClient: OkHttpClient? = null
     var retrofit: Retrofit? = null
     val DEFAULT_TIMEOUT: Long = 5
-    var type=0
+    var type = 0
 
     init {
         createRetrofit()
@@ -34,6 +38,9 @@ class RetrofitClient {
      * 创建retrofit对象
      */
     fun createRetrofit() {
+        if(retrofit!=null){
+            return
+        }
         //缓存地址
         if (httpCacheDirectory == null) {
             httpCacheDirectory = File(mContext.cacheDir, "app_cache")
@@ -49,18 +56,22 @@ class RetrofitClient {
         okHttpClient = OkHttpClient.Builder()
                 .addNetworkInterceptor(
                         HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
-                .cache(cache)
-                .addInterceptor(HeardInterceptor(mContext))
+//                .cache(cache)
+                .authenticator(TokenAuthenticator())
+                .addInterceptor(HeardInterceptor())
+
                 .addInterceptor(getLogInterceptor())
 //                .addNetworkInterceptor(CacheInterceptor(mContext))
                 .connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
                 .writeTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
                 .build()
+
         //retrofit创建了
         retrofit = Retrofit.Builder()
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+
                 .baseUrl(ApiService.BASE_URL)
                 .build()
     }

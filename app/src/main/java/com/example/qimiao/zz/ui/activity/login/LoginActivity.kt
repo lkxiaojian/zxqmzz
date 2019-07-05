@@ -9,7 +9,9 @@ import android.view.View
 import com.example.qimiao.zz.App.MyApplication
 import com.example.qimiao.zz.R
 import com.example.qimiao.zz.mvp.m.bean.LoginToken
+import com.example.qimiao.zz.mvp.m.bean.RefreshTokenBean
 import com.example.qimiao.zz.mvp.m.bean.ResultCode
+import com.example.qimiao.zz.mvp.m.bean.UserMessage
 import com.example.qimiao.zz.mvp.p.ParsingPresenter
 import com.example.qimiao.zz.mvp.p.RxTimerPresenter
 import com.example.qimiao.zz.mvp.v.TimerView
@@ -111,6 +113,10 @@ class LoginActivity : BaseActivity(), TimerView<Any> {
         ImmersionBar.with(this).fullScreen(true).init()
         ll_password_login.visibility = View.VISIBLE
         ll_code_login.visibility = View.GONE
+        val phone = SharedPreferencesUtil.getString(this, "phone", "")
+        if (!TextUtils.isEmpty(phone)) {
+            et_phone_num.setText(phone)
+        }
         mPresenter = ParsingPresenter(this)
         onClick()
         return this
@@ -121,7 +127,16 @@ class LoginActivity : BaseActivity(), TimerView<Any> {
             var data = bean as LoginToken
             SharedPreferencesUtil.saveString(MyApplication.getAppContext(), "refresh_token", data.refresh_token)
             SharedPreferencesUtil.saveString(MyApplication.getAppContext(), "access_token", data.access_token)
-            startActivity(Intent(this, HomeActivity::class.java))
+            mPresenter?.start<RefreshTokenBean>("getUserMessage", "getUserMessage", "", hashMapOf<String, Any>(), data.access_token)
+        } else if ("getUserMessage" == type) {
+            val userMessage = bean as UserMessage
+            if (userMessage != null && userMessage.code == 0) {
+                startActivity(Intent(this, HomeActivity::class.java))
+                finish()
+            } else {
+                Utils.ToastShort(MyApplication.getAppContext(), "用户名密码错误")
+            }
+
         }
     }
 

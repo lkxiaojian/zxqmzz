@@ -1,14 +1,17 @@
-package com.example.qimiao.zz.mvp.m.bean
+package com.example.qimiao.zz.ui.activity.login
 
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.text.TextUtils
 import com.example.qimiao.zz.App.MyApplication
 import com.example.qimiao.zz.R
+import com.example.qimiao.zz.mvp.m.bean.LoginToken
+import com.example.qimiao.zz.mvp.m.bean.RefreshTokenBean
+import com.example.qimiao.zz.mvp.m.bean.ResultCode
 import com.example.qimiao.zz.mvp.p.ParsingPresenter
 import com.example.qimiao.zz.ui.activity.HomeActivity
 import com.example.qimiao.zz.ui.activity.base.BaseActivity
-import com.example.qimiao.zz.ui.activity.login.LoginActivity
 import com.example.qimiao.zz.uitls.Constant
 import com.example.urilslibrary.SharedPreferencesUtil
 import com.gyf.immersionbar.ImmersionBar
@@ -19,8 +22,6 @@ class SplashActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
-
-
     }
 
 
@@ -29,12 +30,11 @@ class SplashActivity : BaseActivity() {
         mPresenter = ParsingPresenter(this)
         var access_token = SharedPreferencesUtil.getString(this, "access_token", "")
 
-
         if (access_token == null || "" == access_token) {
             startActivity(Intent(this, LoginActivity::class.java))
             finish()
         } else {
-            Constant.access_token = access_token
+            Constant.access_token = "Bearer "+access_token
             mPresenter?.start<RefreshTokenBean>("checkToken", "checkToken", "", hashMapOf<String, Any>(), access_token)
         }
 
@@ -48,7 +48,7 @@ class SplashActivity : BaseActivity() {
 
             if (data != null) {
                 var time = data.exp
-                if (time - 3000 >= 0) {
+                if (time - 3000 <= 0) {
                     var refresh_token = SharedPreferencesUtil.getString(this, "refresh_token", "")
                     val mMap: HashMap<String, Any> = hashMapOf("refresh_token" to refresh_token)
 
@@ -72,7 +72,7 @@ class SplashActivity : BaseActivity() {
 
     override fun onStop() {
         var access_token = SharedPreferencesUtil.getString(this, "access_token", "")
-        Constant.access_token = access_token
+        Constant.access_token = "Bearer "+access_token
         super.onStop()
     }
 
