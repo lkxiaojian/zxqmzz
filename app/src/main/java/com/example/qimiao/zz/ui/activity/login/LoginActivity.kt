@@ -127,6 +127,7 @@ class LoginActivity : BaseActivity(), TimerView<Any> {
             var data = bean as LoginToken
             SharedPreferencesUtil.saveString(MyApplication.getAppContext(), "refresh_token", data.refresh_token)
             SharedPreferencesUtil.saveString(MyApplication.getAppContext(), "access_token", data.access_token)
+            Constant.access_token = "Bearer " + data.access_token
             mPresenter?.start<RefreshTokenBean>("getUserMessage", "getUserMessage", "", hashMapOf<String, Any>(), data.access_token)
         } else if ("getUserMessage" == type) {
             val userMessage = bean as UserMessage
@@ -148,6 +149,9 @@ class LoginActivity : BaseActivity(), TimerView<Any> {
             bt_time.isEnabled = true
         } else if (type == "oauthToken") {
             Utils.ToastShort(MyApplication.getAppContext(), "用户名密码错误")
+        }else if("getUserMessage"==type){
+
+
         }
 
     }

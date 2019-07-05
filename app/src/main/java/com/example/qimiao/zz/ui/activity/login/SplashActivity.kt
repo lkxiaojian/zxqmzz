@@ -17,7 +17,7 @@ import com.example.urilslibrary.SharedPreferencesUtil
 import com.gyf.immersionbar.ImmersionBar
 
 class SplashActivity : BaseActivity() {
-    private val a = arrayOfNulls<Any>(1)
+//    private val a = arrayOfNulls<Any>(1)
     private var mPresenter: ParsingPresenter? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +34,7 @@ class SplashActivity : BaseActivity() {
             startActivity(Intent(this, LoginActivity::class.java))
             finish()
         } else {
-            Constant.access_token = "Bearer "+access_token
+            Constant.access_token = "Bearer " + access_token
             mPresenter?.start<RefreshTokenBean>("checkToken", "checkToken", "", hashMapOf<String, Any>(), access_token)
         }
 
@@ -48,7 +48,7 @@ class SplashActivity : BaseActivity() {
 
             if (data != null) {
                 var time = data.exp
-                if (time - 3000 <= 0) {
+                if (time - 10000 <= 0) {
                     var refresh_token = SharedPreferencesUtil.getString(this, "refresh_token", "")
                     val mMap: HashMap<String, Any> = hashMapOf("refresh_token" to refresh_token)
 
@@ -63,6 +63,7 @@ class SplashActivity : BaseActivity() {
             if (data != null) {
                 SharedPreferencesUtil.saveString(MyApplication.getAppContext(), "refresh_token", data.refresh_token)
                 SharedPreferencesUtil.saveString(MyApplication.getAppContext(), "access_token", data.access_token)
+                "Bearer "+
                 startActivity(Intent(this, HomeActivity::class.java))
                 finish()
             }
@@ -72,14 +73,21 @@ class SplashActivity : BaseActivity() {
 
     override fun onStop() {
         var access_token = SharedPreferencesUtil.getString(this, "access_token", "")
-        Constant.access_token = "Bearer "+access_token
+        Constant.access_token = "Bearer " + access_token
         super.onStop()
     }
 
     override fun onError(type: String, error: Throwable) {
 //        startActivitya(LoginActivity::class.java)
-        val intent = Intent(this, LoginActivity::class.java)
-        startActivity(intent)
-        finish()
+        if ("checkToken" == type) {
+            var refresh_token = SharedPreferencesUtil.getString(this, "refresh_token", "")
+            val mMap: HashMap<String, Any> = hashMapOf("refresh_token" to refresh_token)
+            mPresenter?.start<ResultCode>("refreshToken", "refreshToken", "", mMap)
+
+        } else {
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 }

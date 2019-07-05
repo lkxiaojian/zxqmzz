@@ -1,9 +1,9 @@
 package com.example.qimiao.zz.ui.activity
 
 import android.Manifest
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
@@ -18,7 +18,6 @@ import com.amap.api.location.AMapLocationClientOption
 import com.amap.api.location.AMapLocationListener
 import com.example.qimiao.zz.App.MyApplication
 import com.example.qimiao.zz.R
-import com.example.qimiao.zz.adapter.GlideImageLoader
 import com.example.qimiao.zz.adapter.MyPagerAdapter
 import com.example.qimiao.zz.mvp.m.bean.ImageResult
 import com.example.qimiao.zz.ui.activity.base.BaseActivity
@@ -26,16 +25,11 @@ import com.example.qimiao.zz.ui.fragment.*
 import com.example.qimiao.zz.ui.fragment.approve.MerchantApproveFrement
 import com.example.qimiao.zz.uitls.StatusBarUtil
 import com.example.qimiao.zz.uitls.ToolbarUtils
-import com.example.qimiao.zz.uitls.UriParseUtils
 import com.example.qimiao.zz.uitls.ui.UIUtils
 import com.example.urilslibrary.Utils
 import com.flyco.tablayout.listener.OnTabSelectListener
-import com.gyf.immersionbar.ImmersionBar
-import com.netease.image.library.utils.Constants
 import com.tbruyelle.rxpermissions2.RxPermissions
-import com.youth.banner.listener.OnBannerListener
-import com.youth.banner.loader.ImageLoader
-import com.youth.banner.transformer.CubeOutTransformer
+import com.xuexiang.xupdate.XUpdate
 import kotlinx.android.synthetic.main.activity_home.*
 import org.greenrobot.eventbus.EventBus
 import java.util.ArrayList
@@ -130,10 +124,17 @@ class HomeActivity : BaseActivity(), OnTabSelectListener, AMapLocationListener, 
         StatusBarUtil.setStateBar(this, toolbar, 1)
 
         if (falge) {
+            val versionCode = getVersionCode()
+            if(versionCode!=-1){
+                val updateUrl = "http://192.168.3.221:8080/version/upgrade?versionCode=$versionCode"
+                XUpdate.newBuild(this)
+                        .updateUrl("https://raw.githubusercontent.com/xuexiangjys/XUpdate/master/jsonapi/update_test.json")
+                        .supportBackgroundUpdate(true)
+                        .update()
+            }
             requestPermission()
             falge = false
         }
-
 
         onClick()
         return this
@@ -162,7 +163,7 @@ class HomeActivity : BaseActivity(), OnTabSelectListener, AMapLocationListener, 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
         super.onActivityResult(requestCode, resultCode, data)
-        EventBus.getDefault().post(ImageResult(requestCode,resultCode,data))
+        EventBus.getDefault().post(ImageResult(requestCode, resultCode, data))
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
@@ -206,5 +207,25 @@ class HomeActivity : BaseActivity(), OnTabSelectListener, AMapLocationListener, 
     override fun onDestroy() {
         super.onDestroy()
         EventBus.getDefault().unregister(this);
+    }
+
+
+    /**
+     * 获取本地app的版本号
+     *
+     * @return
+     */
+    private fun getVersionCode(): Int {
+        val packageManager = packageManager
+        try {
+            val packageInfo = packageManager.getPackageInfo(packageName, 0)// 获取包的信息
+//            int code = packageInfo.versionCode;
+            return packageInfo.versionCode
+        } catch (e: PackageManager.NameNotFoundException) {
+            // 没有找到包名的时候会走此异常
+            e.printStackTrace()
+        }
+
+        return -1
     }
 }
