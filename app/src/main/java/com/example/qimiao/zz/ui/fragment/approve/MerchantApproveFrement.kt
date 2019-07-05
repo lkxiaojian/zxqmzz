@@ -1,6 +1,7 @@
 package com.example.qimiao.zz.ui.fragment.approve
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.ProgressDialog
 import android.content.Intent
@@ -17,9 +18,11 @@ import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.example.qimiao.kotlinframework.network.ApiService
 import com.example.qimiao.zz.App.MyApplication
 import com.example.qimiao.zz.R
 import com.example.qimiao.zz.mvp.m.bean.ImageResult
+import com.example.qimiao.zz.mvp.m.bean.ResultCode
 import com.example.qimiao.zz.ui.fragment.base.BaseFragment
 import com.example.qimiao.zz.ui.popupwindow.OptionBottomDialog
 import com.example.qimiao.zz.uitls.Constant
@@ -128,6 +131,10 @@ class MerchantApproveFrement : BaseFragment(), CompressImage.CompressListener {
                 Utils.ToastShort(MyApplication.mAppContext, "证件上传不全")
                 return@setOnClickListener
             }
+            var fileList: List<File>? = arrayListOf(imagesMap?.get("id_card_z")!!, imagesMap?.get("id_card_f")!!, imagesMap?.get("id_card_zy")!!)
+
+
+            uploadFiles(fileList!!, 1, shopName, shopAddress, shopPersion, shopPhone)
 
 
         }
@@ -142,6 +149,7 @@ class MerchantApproveFrement : BaseFragment(), CompressImage.CompressListener {
     }
 
 
+    @SuppressLint("CheckResult")
     fun openDialog(view: View, type: String) {
 
         //权限使用
@@ -208,8 +216,6 @@ class MerchantApproveFrement : BaseFragment(), CompressImage.CompressListener {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessageEvent(event: ImageResult) {
-//        Log.e("tag", event.data.dataString)
-
         if (event.resultCode == Activity.RESULT_OK) {
             if (event.requestCode == Constant.CAMERA_CODE_ID_ZY || event.requestCode == Constant.CAMERA_CODE_ID_Z || event.requestCode == Constant.CAMERA_CODE_ID_F) {
                 preCompress(cameraCachePath!!, event.requestCode)
@@ -220,13 +226,10 @@ class MerchantApproveFrement : BaseFragment(), CompressImage.CompressListener {
                     // 压缩（集合？单张）
                     preCompress(path, event.requestCode)
                 }
-
             }
         } else {
             Utils.ToastShort(MyApplication.mAppContext, "图片读取失败")
         }
-
-
     }
 
     override fun onCompressSuccess(arrayList: ArrayList<Photo>) {
@@ -295,23 +298,26 @@ class MerchantApproveFrement : BaseFragment(), CompressImage.CompressListener {
                 .into(imageView)
     }
 
-
-    private fun uploadFiles(fileList: List<File>, which: Int) { // which 1 image,2 video
+    private fun uploadFiles(fileList: List<File>, which: Int, shopName: String, shopAddress: String, shopPersion: String, shopPhone: String) { // which 1 image,2 video
 
         val builder = MultipartBody.Builder().setType(MultipartBody.FORM)
-        for (file in fileList) {
-            if (file != null) {
-                builder.addFormDataPart("files", file.name, RequestBody.create(if (which == 1) Constant.MEDIA_TYPE_JPG else Constant.MEDIA_TYPE_MP4, file))
-            }
-        }
+        var exist=fileList[0].exists()
+        builder.addFormDataPart("idcardFrontFile", fileList[0].name, RequestBody.create(if (which == 1) Constant.MEDIA_TYPE_JPG else Constant.MEDIA_TYPE_MP4, fileList[0]))
+        builder.addFormDataPart("idcardBackFile", fileList[1].name, RequestBody.create(if (which == 1) Constant.MEDIA_TYPE_JPG else Constant.MEDIA_TYPE_MP4, fileList[1]))
+        builder.addFormDataPart("businessLicenseFile", fileList[2].name, RequestBody.create(if (which == 1) Constant.MEDIA_TYPE_JPG else Constant.MEDIA_TYPE_MP4, fileList[2]))
+        builder.addFormDataPart("address",shopAddress)
+        builder.addFormDataPart("employerName",shopName)
+        builder.addFormDataPart("linkman",shopPersion)
+        builder.addFormDataPart("tel",shopPhone)
         val requestBody = builder.build()
         val request = Request.Builder()
-                .url("url")
+                .url(ApiService.BASE_URL+"employer/register")
+                .addHeader("Bearer",Constant.header_token)
                 .post(requestBody)
                 .build()
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
-                println("上传失败:e.getLocalizedMessage() = " + e.localizedMessage)
+                Log.e("tag","上传失败:e.getLocalizedMessage() = " + e.localizedMessage)
 //                dismissLoadingDialog()
 //                U.showToast("文件上传错误，请重新上传")
             }
@@ -320,7 +326,7 @@ class MerchantApproveFrement : BaseFragment(), CompressImage.CompressListener {
             override fun onResponse(call: Call, response: Response) {
                 val JsonStr = response.body()!!.string()
                 println("上传照片成功：response = $JsonStr")
-//                val entity = Gson().fromJson<Any>(JsonStr, ReleaseEntity::class.java)
+                val entity = Gson().fromJson<Any>(JsonStr, ResultCode::class.java)
 
             }
         })
